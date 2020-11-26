@@ -43,7 +43,7 @@ app.use(expressValidator());
 
 
 
-app.set( 'port' , 8080 ) ;
+app.set( 'port' , process.env.PORT || 8080 ) ;
 
 //routes
 app.get('/', function(req, res){
