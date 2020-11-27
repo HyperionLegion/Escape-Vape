@@ -8,8 +8,10 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var config = require('./config/database')
+var passport = require('passport');
 
-mongoose.connect('mongodb://localhost/escapevape');
+mongoose.connect(config.database);
 let db = mongoose.connection;
 
 //check db connection
@@ -25,23 +27,57 @@ db.on('error', function(err){
 app.use(express.static(path.join(__dirname, 'public')));
 
 //view engine setup
-app.engine('html', cons.swig);
+//app.engine('html', cons.swig);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
+//app.set('view engine', 'html');
+app.set('view engine', 'ejs');
 
 //body parser
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-//express session middleware
+// Express Session Middleware
 app.use(session({
-	secret: 'keyboard cat',
-	resave: true,
-	saveUninitialized: true
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
 }));
-app.use(expressValidator());
 
+// Express Messages Middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
 
+// Express Validator Middleware
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+
+//passport config
+require('./config/passport')(passport);
+// Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('*', function(req, res, next){
+	res.locals.user=req.user || undefined;
+	next();
+});
 
 app.set( 'port' , 8080 ) ;
 
