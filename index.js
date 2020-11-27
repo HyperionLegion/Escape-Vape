@@ -11,7 +11,10 @@ var mongoose = require('mongoose');
 var config = require('./config/database')
 var passport = require('passport');
 
-mongoose.connect(config.database);
+mongoose.connect(process.env.MONGODB_URI || config.database, {
+	useNewUrlParser: true,
+	useUnifiedTopology:true
+});
 let db = mongoose.connection;
 
 //check db connection
