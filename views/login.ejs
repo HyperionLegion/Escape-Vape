@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-	<title>Register</title>
+	<title>Login</title>
 	<link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<link href="/css/style.css" rel="stylesheet">
 	<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 	<script src="/bower_components/jquery/dist/jquery.js"></script>
 	</head>
@@ -18,22 +19,31 @@
 		      <li class="nav-item active">
 		        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
 		      </li>
+		  	</ul>
+		  	<ul class="navbar-nav navbar-right">
+		      <%if (typeof user != 'undefined'){%>
+		      	<li class="nav-item">
+		      	<a class = "nav-link" href="/users/logout">Logout</a></li>
+		      <%}else{%>
 		      <li class="nav-item">
-		        <a class="nav-link" href="/users/register">Register</a>
+		        <a class="nav-link " href="/users/register">Register</a>
 		      </li>
 		     <li class="nav-item">
 		        <a class="nav-link" href="/users/login">Login</a>
 		      </li>
+		      <%}%>
 		    </ul>
 		  </div>
 		</nav>
 		<div class="container">
-		<h1>Register</h1>
-  <form method="POST" action="/users/register">
-    <div id="form-group">
-      <label>Email:</label>
-      <input class="form-control" name="email" type="text" />
-    </div>
+		<%- messages('message', locals) %>
+		<% if(typeof errors != 'undefined'){%>
+			<% errors.forEach(function (i) { %>
+		    <div class="alert alert-danger"><%= i.msg %></div>
+		  	<% }) %>
+		<%}%>
+		<h1>Login</h1>
+  <form method="POST" action="/users/login">
     <div id="form-group">
       <label>Username:</label>
       <input class="form-control" name="username" type="text" />
@@ -42,10 +52,7 @@
       <label>Password:</label>
       <input class="form-control" name="password" type="password" />
     </div>
-    <div id="form-group">
-      <label>Confirm Password:</label>
-      <input class="form-control" name="password2" type="password" />
-    </div><br />
+    <br/>
     <input class="btn btn-primary" type="submit" value="Submit" />
   </form>
 </div>
