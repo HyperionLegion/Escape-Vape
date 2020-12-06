@@ -88,18 +88,22 @@ app.set( 'port' , 8080 ) ;
 app.get('/', function(req, res){
   res.render('index')
 });
-app.get('/:page', function(req, res){
+/*app.get('/:page', function(req, res){
 
     var info = {
         page : req.params.page
     };
 
     res.send("Not valid URL for this site")
-});
+});*/
 
 let users = require('./routes/users');
 app.use('/users', users);
-
+//The 404 Route (ALWAYS Keep this as the last route)
+app.get('*', function(req, res){
+  req.flash('danger', 'Not a valid URL');
+  res.status(404).redirect('/');
+});
 //port
 var listener = app . listen( app.get( 'port' )  , function() {   
 

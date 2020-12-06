@@ -39,5 +39,13 @@
 		    </ul>
 		  </div>
 		</nav>
+		<div class="container">
+			<%- messages('message', locals) %>
+		<% if(typeof errors != 'undefined'){%>
+			<% errors.forEach(function (i) { %>
+		    <div class="alert alert-danger"><%= i.msg %></div>
+		  	<% }) %>
+		<%}%>
+		</div>
 </body>
 </html>
