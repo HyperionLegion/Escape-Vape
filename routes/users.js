@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
  let User = require('../models/user');
-
+let Log = require('../models/log');
  router.get('/register', function(req, res){
  	res.render('register');
  });
@@ -51,8 +51,22 @@ router.post('/register', function(req, res){
 						console.log(err);
 						return;
 					} else{
-						req.flash('success', 'You are now registered and can log in.');
-						res.redirect('/users/login');
+						let newLog = new Log({
+							user_id: newUser._id,
+							logs: [{date: new Date(), body:'Welcome to EscapeVape!'}],
+							days: 0,
+							date: new Date()
+						});
+						newLog.save(function(){
+							if(err){
+								console.log(err);
+								return;
+							}
+							else{
+								req.flash('success', 'You are now registered and can log in.');
+								res.redirect('/users/login');
+							}
+						});
 					}
 				});
 			});
@@ -74,7 +88,28 @@ router.post('/login', function(req, res, next){
     failureFlash: true
   })(req, res, next);
 });
-
+router.get('/log', ensureAuthenticated, function(req, res){
+	Log.findOne({user_id: req.user._id}, function(err, log){
+		if(err){
+			res.flash('danger', 'Something went wrong')
+			res.redirect('/');
+			console.log(err);
+			return;
+		}
+		else{
+			res.render('log', {log:log});
+		}
+	});
+});
+// Access Control
+function ensureAuthenticated(req, res, next){
+  if(req.isAuthenticated()){
+    return next();
+  } else {
+    req.flash('danger', 'Please login');
+    res.redirect('/users/login');
+  }
+}
 //logout process
 router.get('/logout', function(req, res){
 	req.logout();
