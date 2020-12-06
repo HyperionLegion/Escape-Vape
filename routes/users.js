@@ -34,46 +34,72 @@ router.post('/register', function(req, res){
 			email:email,
 			password:password
 		});
-
-
-		bcrypt.genSalt(10, function(err, salt){
+		var d1, d2;
+		User.exists({username:newUser.username}, function(err, user){
 			if(err){
 				console.log(err);
+				return;
 			}
 			else{
-			bcrypt.hash(newUser.password, salt, function(err, hash){
-				if(err){
-					console.log(err);
+				if(user){
+					req.flash('danger', 'Account with this username already exists')
+					res.redirect('/users/register');
 				}
-				newUser.password = hash;
-				newUser.save(function(){
-					if(err){
-						console.log(err);
-						return;
-					} else{
-						let newLog = new Log({
-							user_id: newUser._id,
-							logs: [{date: new Date(), body:'Welcome to EscapeVape!'}],
-							days: 0,
-							date: new Date()
-						});
-						newLog.save(function(){
-							if(err){
-								console.log(err);
-								return;
+				else{
+					User.exists({email:newUser.email}, function(err, user){
+						if(err){
+							console.log(err);
+							return;
+						}
+						else{
+							if(user){
+								req.flash('danger', 'Account with this email already exists');
+								res.redirect('/users/register');
 							}
 							else{
-								req.flash('success', 'You are now registered and can log in.');
-								res.redirect('/users/login');
+								bcrypt.genSalt(10, function(err, salt){
+									if(err){
+										console.log(err);
+									}
+									else{
+									bcrypt.hash(newUser.password, salt, function(err, hash){
+										if(err){
+											console.log(err);
+										}
+										newUser.password = hash;
+										newUser.save(function(){
+											if(err){
+												console.log(err);
+												return;
+											} else{
+												let newLog = new Log({
+													user_id: newUser._id,
+													logs: [{date: new Date(), body:'Welcome to EscapeVape!'}],
+													days: 0,
+													date: new Date()
+												});
+												newLog.save(function(){
+													if(err){
+														console.log(err);
+														return;
+													}
+													else{
+														req.flash('success', 'You are now registered and can log in.');
+														res.redirect('/users/login');
+													}
+												});
+											}
+										});
+									});
+									}
+								});
 							}
-						});
-					}
-				});
-			});
+						}
+					});
+				}
 			}
-		});
+		});		
 	}
-
 });
 
 //login form
@@ -91,7 +117,7 @@ router.post('/login', function(req, res, next){
 router.get('/log', ensureAuthenticated, function(req, res){
 	Log.findOne({user_id: req.user._id}, function(err, log){
 		if(err){
-			res.flash('danger', 'Something went wrong')
+			req.flash('danger', 'Something went wrong')
 			res.redirect('/');
 			console.log(err);
 			return;
