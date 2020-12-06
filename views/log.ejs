@@ -46,9 +46,9 @@
 		<h2>Log Entries:<h2>
 		<ul>
 			<%log.logs.forEach(function(logEntry){%>
-			<li>
-				<h2>Date: <%=logEntry.date%></h2>
-				<h2>Log: <%=logEntry.body%></h2>
+			<li class="list-group-item">
+				<h4>Date: <%=logEntry.date%></h2>
+				<h4>Log: <%=logEntry.body%></h2>
 			</li>
 		<%})%>
   		</ul>
