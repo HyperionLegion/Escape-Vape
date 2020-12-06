@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-	<title>Register</title>
+	<title>Escape Vape</title>
 	<link href="/css/style.css" rel="stylesheet">
 	<link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 	<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -40,32 +40,18 @@
 		  </div>
 		</nav>
 		<div class="container">
-		<%- messages('message', locals) %>
-		<% if(typeof errors != 'undefined'){%>
-			<% errors.forEach(function (i) { %>
-		    <div class="alert alert-danger"><%= i.msg %></div>
-		  	<% }) %>
-		<%}%>
-		<h1>Register</h1>
-  <form method="POST" action="/users/register">
-    <div id="form-group">
-      <label>Email:</label>
-      <input class="form-control" name="email" type="text" />
-    </div>
-    <div id="form-group">
-      <label>Username:</label>
-      <input class="form-control" name="username" type="text" />
-    </div>
-    <div id="form-group">
-      <label>Password:</label>
-      <input class="form-control" name="password" type="password" />
-    </div>
-    <div id="form-group">
-      <label>Confirm Password:</label>
-      <input class="form-control" name="password2" type="password" />
-    </div><br />
-    <input class="btn btn-primary" type="submit" value="Submit" />
-  </form>
-</div>
+		<h1>Your Log</h1>
+		<h2><%=log.days%> days since last vape</h2>
+		<h2><%=log.date%> last vape date</h2>
+		<h2>Log Entries:<h2>
+		<ul>
+			<%log.logs.forEach(function(logEntry){%>
+			<li>
+				<h2>Date: <%=logEntry.date%></h2>
+				<h2>Log: <%=logEntry.body%></h2>
+			</li>
+		<%})%>
+  		</ul>
+		</div>
 </body>
 </html>
