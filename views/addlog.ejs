@@ -40,25 +40,13 @@
 		  </div>
 		</nav>
 		<div class="container">
-			<%- messages('message', locals) %>
-		<% if(typeof errors != 'undefined'){%>
-			<% errors.forEach(function (i) { %>
-		    <div class="alert alert-danger"><%= i.msg %></div>
-		  	<% }) %>
-		<%}%>
-		<h1>Your Log</h1>
-		<a href="/users/log/add" class="btn btn-primary">Add Log</a>
-		<h2><%=days%> days since last vape</h2>
-		<h2><%=date%> last vape date</h2>
-		<h2>Log Entries:<h2>
-		<ul>
-			<%log.logs.reverse().forEach(function(logEntry){%>
-			<li class="list-group-item">
-				<h4>Date: <%=logEntry.date%></h2>
-				<h4>Log: <%=logEntry.body%></h2>
-			</li>
-		<%})%>
-  		</ul>
+		<h2>Add New Log:<h2>
+		<form method="POST", action="/users/log/add">
+			<div class="form-group">
+			  <textarea type="text" autocomplete="on" minlength="1" rows="7" cols="60" id="log" name="log" placeholder="Log goes here..."></textarea>
+			</div>
+			  <input type="submit" value="Submit" class="btn btn-success">
+		</form>
 		</div>
 </body>
 </html>

@@ -32,7 +32,8 @@ router.post('/register', function(req, res){
 		let newUser = new User({
 			username:username,
 			email:email,
-			password:password
+			password:password,
+			date: new Date(),
 		});
 		var d1, d2;
 		User.exists({username:newUser.username}, function(err, user){
@@ -75,7 +76,6 @@ router.post('/register', function(req, res){
 												let newLog = new Log({
 													user_id: newUser._id,
 													logs: [{date: new Date(), body:'Welcome to EscapeVape!'}],
-													days: 0,
 													date: new Date()
 												});
 												newLog.save(function(){
@@ -123,7 +123,60 @@ router.get('/log', ensureAuthenticated, function(req, res){
 			return;
 		}
 		else{
-			res.render('log', {log:log});
+			User.findOne({_id:req.user._id}, function(err, user){
+				if(err){
+					req.flash('danger', 'Something went wrong')
+					res.redirect('/');
+					console.log(err);
+					return;
+				}
+				else{
+					let today = new Date();
+					res.render('log', {log:log, date:user.date, days:parseInt((today.getTime() - user.date.getTime())/(1000*3600*24))});
+				}
+			});
+		}
+	});
+});
+router.get('/log/add', ensureAuthenticated, function(req, res){
+	Log.findOne({user_id: req.user._id}, function(err, log){
+		if(err){
+			req.flash('danger', 'Something went wrong')
+			res.redirect('/');
+			console.log(err);
+			return;
+		}
+		else{
+			res.render('addlog')
+		}
+	});
+});
+router.post('/log/add', ensureAuthenticated, function(req, res){
+	Log.findOne({user_id: req.user._id}, function(err, log){
+		if(err){
+			req.flash('danger', 'Something went wrong')
+			res.redirect('/');
+			console.log(err);
+			return;
+		}
+		else{
+			req.checkBody('log', 'Log is required.').notEmpty();
+			let errors =req.validationErrors();
+			if(errors){
+				res.render('log', {log:log, errors: errors})
+			}
+			else{
+				let newLog = {date: new Date(), body:req.body.log};
+				log.logs.push(newLog);
+				Log.update({user_id: req.user._id}, log, function(err){
+					if(err){
+					console.log(err);
+					return;
+				} else{
+					res.redirect('/users/log');
+				}
+				});
+			}
 		}
 	});
 });
