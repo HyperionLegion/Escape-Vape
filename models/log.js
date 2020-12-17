@@ -2,10 +2,6 @@ let mongoose = require('mongoose');
 
 // Log Schema
 let LogSchema = mongoose.Schema({
-  days:{
-    type: Number,
-    required: true
-  },
   user_id:{
     type: String,
     required: true
