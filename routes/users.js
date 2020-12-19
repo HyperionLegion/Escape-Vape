@@ -133,7 +133,7 @@ router.get('/log', ensureAuthenticated, function(req, res){
 				}
 				else{
 					let today = new Date();
-					res.render('log', {log:log, date:user.date, longest: user.days, days:parseInt((today.getTime() - user.date.getTime())/(1000*3600*24))});
+					res.render('log', {log:log, date:user.date, longest: user.days, days:Math.round((today.getTime() - user.date.getTime())/(1000*3600*24))});
 				}
 			});
 		}
@@ -165,7 +165,7 @@ router.post('/log/relapse', ensureAuthenticated, function(req, res){
 		}
 		else{
 			let today = new Date();
-			let newDays = parseInt((today.getTime() - user.date.getTime())/(1000*3600*24));
+			let newDays = Math.round((today.getTime() - user.date.getTime())/(1000*3600*24));
 			let updated = {_id: user._id, username:user.username,email:user.email,password:user.password,date: today,days: Math.max(newDays, user.days)}
 			User.update({_id: req.user._id}, updated, function(err){
 				if(err){
