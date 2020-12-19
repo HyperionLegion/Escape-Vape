@@ -17,6 +17,10 @@ const UserSchema = mongoose.Schema({
 		type: Date,
 		required: true
 	},
+	days:{
+		type: Number,
+		required: true
+	}
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
