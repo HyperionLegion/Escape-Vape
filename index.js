@@ -10,7 +10,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var config = require('./config/database')
 var passport = require('passport');
-
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 mongoose.connect(process.env.MONGODB_URI || config.database, {
 	useNewUrlParser: true,
 	useUnifiedTopology:true
@@ -99,14 +100,16 @@ app.get('/', function(req, res){
 
 let users = require('./routes/users');
 app.use('/users', users);
+let rooms = require('./routes/rooms');
+app.use('/rooms', rooms);
 //The 404 Route (ALWAYS Keep this as the last route)
 app.get('*', function(req, res){
   req.flash('danger', 'Not a valid URL');
   res.status(404).redirect('/');
 });
 //port
-var listener = app . listen( app.get( 'port' )  , function() {   
+ var listener = app . listen( app.get( 'port' )  , function() {   
 
-   console . log( "Express server started on port: " + listener . address() . port ) ;
+    console . log( "Express server started on port: " + listener . address() . port ) ;
 
-} ) ;
+ } ) ;
