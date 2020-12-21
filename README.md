@@ -1,3 +1,3 @@
 # Escape-Vape
-Free Site and App targeted towards teens (anonymously) to best stop addictions.
+A free web application targeted towards teens (anonymously) to best stop vape addictions.
 https://escapevape.herokuapp.com/
