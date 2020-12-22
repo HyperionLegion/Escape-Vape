@@ -97,7 +97,9 @@ app.get('/', function(req, res){
 
     res.send("Not valid URL for this site")
 });*/
-
+app.get('/lifeline', ensureAuthenticated, function(req, res){
+  res.render('lifeline');
+});
 let users = require('./routes/users');
 app.use('/users', users);
 let rooms = require('./routes/rooms');
@@ -108,6 +110,14 @@ app.get('*', function(req, res){
   res.status(404).redirect('/');
 });
 //port
+function ensureAuthenticated(req, res, next){
+  if(req.isAuthenticated()){
+    return next();
+  } else {
+    req.flash('danger', 'Please login');
+    res.redirect('/users/login');
+  }
+}
  var listener = app . listen( app.get( 'port' )  , function() {   
 
     console . log( "Express server started on port: " + listener . address() . port ) ;

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<title>Escape Vape</title>
+	<link href="/css/style.css" rel="stylesheet">
+	<link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+	<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="/bower_components/jquery/dist/jquery.js"></script>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		  <a class="navbar-brand" href="/">EscapeVape</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		    
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="navbarsExample04">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item">
+		        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <%if(typeof user!= 'undefined'){%>
+		      <li class="nav-item">
+		      	<a class = "nav-link" href="/users/log">Your Log</a></li>
+		      <li class="nav-item active">
+		      	<a class="nav-link" href="/lifeline">Lifeline</a></li>
+		      </li>
+		      <li class="nav-item">
+		      	<a class="nav-link" href="/rooms/">Video Call</a></li>
+		      <%}%>
+		  	</ul>
+		  	<ul class="navbar-nav navbar-right">
+		      <%if (typeof user != 'undefined'){%>
+		      	<li class="nav-item">
+		      	<a class = "nav-link" href="/users/logout">Logout</a></li>
+		      <%}else{%>
+		      <li class="nav-item">
+		        <a class="nav-link " href="/users/register">Register</a>
+		      </li>
+		     <li class="nav-item">
+		        <a class="nav-link" href="/users/login">Login</a>
+		      </li>
+		      <%}%>
+		    </ul>
+		  </div>
+		</nav>
+		<div class="container">
+			<%- messages('message', locals) %>
+		<% if(typeof errors != 'undefined'){%>
+			<% errors.forEach(function (i) { %>
+		    <div class="alert alert-danger"><%= i.msg %></div>
+		  	<% }) %>
+		<%}%>
+		<div class="list-group-item">
+		<h1>Lifeline</h1>
+		<p>This is your lifeline. If you ever feel strong urges to relapse come here to try some last minute treatments to overcome your urges. Typical withdrawal urges only last about 10-20 minutes so feel free to use any of the activities below to take care of yourself. Be Strong!</p></div>
+		<ul>
+		<li class="list-group-item">
+		<h2>Exercise</h2>
+		<p>Exercise is great for your health and release endorphins which are feel good chemicals. This is a great way to take out your rage and frustration into something physical and beneficial!</p>
+		<ul>
+			<li class="list-group-item">Do as many push ups as you can</li>
+			<li class="list-group-item"><a href="https://www.youtube.com/watch?v=uUKAYkQZXko">Time to get a 6 pack</a></li>
+			<li class="list-group-item">Run a mile</li>
+			<li class="list-group-item">Plank as long as you can</li>
+			<li class="list-group-item">Practice/Play your favorite sport</li>
+		</ul>
+		</li>
+		<li class="list-group-item">
+		<h2>Gaming</h2>
+		<p>Gaming is a great distraction. Play your favorite videogame or play some fun small minigames on the internet:</p>
+		<ul>
+			<li class="list-group-item"><a href="https://agar.io/">agario</a></li>
+			<li class="list-group-item"><a href="https://surviv.io/">survivio</a></li>
+			<li class="list-group-item"><a href="https://snake.io/">snakeio</a></li>
+			<li class="list-group-item"><a href="https://skribbl.io/">skribblio (best with multiple people)</a></li>
+			<li class="list-group-item"><a href="https://www.coolmathgames.com/0-fireboy-and-water-girl-in-the-forest-temple">Fireboy & Watergirl</a>
+			<li class="list-group-item">Minecraft</li>
+		</ul>
+		</li>
+		<li class="list-group-item">
+		<h2>Meditation</h2>
+		<p>Meditation is great for your spiritual health. It will calm your mind and you will learn to be in control. Here's some meditation audio/videos:</p>
+		<ul>
+			<li class="list-group-item"><a href="https://www.youtube.com/watch?v=inpok4MKVLM">5 minute meditation session</a></li>
+			<li class="list-group-item"><a href="https://www.youtube.com/watch?v=O-6f5wQXSu8">10 minute meditation session</a></li>
+			<li class="list-group-item"><a href="https://www.headspace.com/">Headspace is a great audio meditation app</a></li>
+		</ul>
+		</li>
+		<li class="list-group-item">
+		<h2>Movies, Episodes, Videos</h2>
+		<p>Distract yourself with some of the best film of all time:</p>
+		<ul>
+			<li class="list-group-item">Star Wars</li>
+			<li class="list-group-item"><a href="https://www.youtube.com/watch?v=uUKAYkQZXko">Time to get a 6 pack</a></li>
+		</ul>
+		</li>
+		<li class="list-group-item">
+		<h2>Social Media</h2>
+		<p>Socialize and express your feelings</p>
+		<ul>
+			<li class="list-group-item">Call someone you trust to complain</li>
+			<li class="list-group-item">Scroll on TikTok, Instagram, Twitter, etc. to distract yourself</li>
+			<li class="list-group-item"><a href="https://escapevape.herokuapp.com/rooms">Send your friends this link to call. You might also get to have a professional come and confort you</a></li>
+		</ul>
+		</li>
+		<li class="list-group-item">
+		<h2>Music</h2>
+		<p>Vibe out to some dope music</p>
+		<ul>
+			<li class="list-group-item">Call someone you trust to complain</li>
+			<li class="list-group-item">Scroll on TikTok, Instagram, Twitter, etc. to distract yourself</li>
+		</ul>
+		</li>
+		<li class="list-group-item">
+		<h2>Cooking & Eating</h2>
+		<p>Substitute your drug desires with food:</p>
+		<ul>
+			<li class="list-group-item">Do as many push ups as you can</li>
+			<li class="list-group-item"><a href="https://www.youtube.com/watch?v=uUKAYkQZXko">Time to get a 6 pack</a></li>
+		</ul>
+		</li>
+		<li class="list-group-item">
+			<h2>Hobbies</h2>
+		<p>Pick up a new hobbie in the meantime:</p>
+		<ul>
+			<li class="list-group-item"><a href="https://www.youtube.com/watch?v=EPylVlpKpZA">Coding</a></li>
+			<li class="list-group-item"><a href="https://www.youtube.com/watch?v=uUKAYkQZXko">Time to get a 6 pack</a></li>
+		</ul>
+		</li>
+		<li class="list-group-item">
+		<h2>Miscellaneous</h2>
+		<p>Everything else that can help!</p>
+		<ul>
+			<li class="list-group-item">Take a shower or bath</li>
+			<li class="list-group-item"><a href="https://www.youtube.com/watch?v=uUKAYkQZXko">Time to get a 6 pack</a></li>
+		</ul>
+		</li>
+		<ul>
+		</div>
+</body>
+</html>
