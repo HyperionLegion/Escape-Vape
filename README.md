@@ -12,7 +12,7 @@ Check out our demo video for the challenge:
 Check out the app:
 https://escapevape.herokuapp.com/
 
-## Start EscapeVape on your own computer
+## Use our code
 1. Git Clone the repository
 2. npm install 
 3. npm start
