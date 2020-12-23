@@ -11,3 +11,9 @@ Check out our demo video for the challenge:
 ## Test it out
 Check out the app:
 https://escapevape.herokuapp.com/
+
+## Start EscapeVape on your own computer
+1. Git Clone the repository
+2. npm install 
+3. npm start
+4. open the browser and go to http://127.0.0.1:8080/
