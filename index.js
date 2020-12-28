@@ -104,6 +104,8 @@ let users = require('./routes/users');
 app.use('/users', users);
 let rooms = require('./routes/rooms');
 app.use('/rooms', rooms);
+let therapies = require('./routes/therapies');
+app.use('/therapy', therapies);
 //The 404 Route (ALWAYS Keep this as the last route)
 app.get('*', function(req, res){
   req.flash('danger', 'Not a valid URL');
