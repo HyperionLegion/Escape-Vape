@@ -180,6 +180,7 @@ router.post('/account', ensureAuthenticated, function(req, res){
 												console.log(err);
 												return;
 											} else{
+														req.logout();
 														req.flash('success', 'You updated your accuont. Please login again.');
 														res.redirect('/users/login');
 
