@@ -102,7 +102,102 @@ router.post('/register', function(req, res){
 		});		
 	}
 });
+router.get('/account', function(req, res){
+	res.render('settings');
+})
+router.post('/account', ensureAuthenticated, function(req, res){
+	const email = req.body.email;
+	const username = req.body.username;
+	const password = req.body.password;
+	const password2 = req.body.password2;
 
+	req.checkBody('email', 'Email is required.').notEmpty();
+	req.checkBody('email', 'Email is not valid email.').isEmail();
+	req.checkBody('username', 'Username is required. It does not need your name if you wish to be fully anonymous.').notEmpty();
+	req.checkBody('password', 'Password is required.').notEmpty();
+	req.checkBody('password2', 'Password needs to be confirmed.').notEmpty();
+	req.checkBody('password2', 'Passwords do not match.').equals(req.body.password);
+
+	let errors = req.validationErrors();
+
+	if(errors){
+		res.render('settings', {errors:errors});
+	}
+	else{
+		let newUser = new User({
+			username:username,
+			email:email,
+			password:password,
+			date: new Date(),
+			days: 0
+		});
+		var d1, d2;
+		User.exists({username:newUser.username}, function(err, user){
+			if(err){
+				console.log(err);
+				return;
+			}
+			else{
+				if(user){
+					req.flash('danger', 'Account with this username already exists')
+					res.redirect('/users/account');
+				}
+				else{
+					User.exists({email:newUser.email}, function(err, user){
+						if(err){
+							console.log(err);
+							return;
+						}
+						else{
+							if(user){
+								req.flash('danger', 'Account with this email already exists');
+								res.redirect('/users/account');
+							}
+							else{
+								bcrypt.genSalt(10, function(err, salt){
+									if(err){
+										console.log(err);
+									}
+									else{
+									bcrypt.hash(newUser.password, salt, function(err, hash){
+										if(err){
+											console.log(err);
+										}
+										newUser.password = hash;
+										User.findOne({_id:req.user._id}, function(err, user){
+				if(err){
+					req.flash('danger', 'Something went wrong')
+					res.redirect('/');
+					console.log(err);
+					return;
+				}
+				else{
+					newUser.date = user.date;
+					newUser.days = user.days;
+					newUser._id = user._id;
+					User.update({_id:req.user._id}, newUser, function(err){
+						if(err){
+												console.log(err);
+												return;
+											} else{
+														req.flash('success', 'You updated your accuont. Please login again.');
+														res.redirect('/users/login');
+
+											}
+					})
+				}
+			});
+									});
+									}
+								});
+							}
+						}
+					});
+				}
+			}
+		});		
+	}
+});
 //login form
 router.get('/login', function(req, res){
 	res.render('login');
