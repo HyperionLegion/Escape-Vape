@@ -8,7 +8,7 @@ let Log = require('../models/log');
  router.get('/register', function(req, res){
  	res.render('register');
  });
-
+let Email = require('../models/email');
 //register process
 router.post('/register', function(req, res){
 	const email = req.body.email;
@@ -102,9 +102,45 @@ router.post('/register', function(req, res){
 		});		
 	}
 });
-router.get('/account', function(req, res){
-	res.render('settings');
+router.get('/account', ensureAuthenticated, function(req, res){
+			res.render('settings');
 })
+router.post('/notifs', ensureAuthenticated, function(req, res){
+	Email.findOne({userid: req.user._id}, function(err, mail){
+		if(err){
+			console.log(err);
+		}
+		else{
+			if(mail){
+					Email.deleteOne({userid: req.user._id}, function(err){
+					if(err){
+						console.log(err);
+					}
+					else{
+						req.flash('success', 'Disabled Daily Emails')
+						res.redirect('/')
+					}
+				})
+			}
+			else{
+				let email = new Email({
+					userid: req.user._id,
+					email: req.user.email
+				});
+				email.save(function(err){
+					if(err){
+						console.log(err);
+					}
+					else{
+						req.flash('success', 'Enabled Daily Emails')
+						res.redirect('/');
+					}
+				});
+			}
+		}
+	})
+	
+});
 router.post('/account', ensureAuthenticated, function(req, res){
 	const username = req.body.username;
 	const password = req.body.password;

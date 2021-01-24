@@ -12,6 +12,8 @@ var config = require('./config/database')
 var passport = require('passport');
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
+var nodemailer = require('nodemailer');
+
 mongoose.connect(process.env.MONGODB_URI || config.database, {
 	useNewUrlParser: true,
 	useUnifiedTopology:true
@@ -86,7 +88,45 @@ app.get('*', function(req, res, next){
 app.set( 'port' , process.env.PORT || 8080 ) ;
 
 //routes
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'escapevapeapp@gmail.com',
+    pass: 'EscapeVape2020!'
+  }
+});
+
+let Email = require('./models/email');
+var schedule = require('node-schedule');
+
+var j = schedule.scheduleJob('0 0 * * *', function(){
+   Email.find({}, function(err, result){
+      if(err){
+        console.log(err);
+      }
+      else{
+        result.forEach(mail => {
+          var mailOptions = {
+  from: 'escapevapeapp@gmail.com',
+  to: mail.email,
+  subject: 'Escape Vape Motivation!',
+  text: 'The grind does not stop!'
+};
+   transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
+        })
+      }
+  });
+  console.log('running a task every day');
+});
+
 app.get('/', function(req, res){
+
   res.render('index')
 });
 /*app.get('/:page', function(req, res){
@@ -106,6 +146,9 @@ let rooms = require('./routes/rooms');
 app.use('/rooms', rooms);
 let therapies = require('./routes/therapies');
 app.use('/therapy', therapies);
+
+
+
 //The 404 Route (ALWAYS Keep this as the last route)
 app.get('*', function(req, res){
   req.flash('danger', 'Not a valid URL');
