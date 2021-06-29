@@ -1,29 +1,57 @@
-.alert-error{
-	color:#a94442;
-	background-color:#f2dede;
-	border-color:#ebccd1;
+body {
+  background-color: #faa3a3;
+  font-family: "Lato";
+}
+@media only screen and (max-width: 768px) {
+  .card {
+    flex-wrap: wrap;
+  }
+}
+.card {
+  flex-direction: row;
+  display: flex;
+  border-radius: 15px;
+  box-sizing: border-box;
+  justify-content: center;
+  margin-top: 10px;
+  width: 100%;
+  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+.card2 {
+  display: flex;
+  border-radius: 15px;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  margin: 10px;
+  background-color: white;
+  padding: 5px;
+  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+.alert-error {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
 }
 
-.alert-success_msg{
-	color:#3c763d;
-	background-color:#dff0d8;
-	border-color:#d6e9c6;
+.alert-success_msg {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
 }
 .tag {
-    opacity: 0;
-    transform: translate(0, 10vh);
-    transition: all 1s;
-    }
-    
-    .tag.visible {
-    opacity: 1;
-    transform: translate(0, 0);
+  opacity: 0;
+  transform: translate(0, 10vh);
+  transition: all 1s;
+}
+
+.tag.visible {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 .background-color {
-	color:#3c763d
+  color: #3c763d;
 }
 /*hello*/
 
-
 /*test*/
-

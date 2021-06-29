@@ -1,0 +1,11 @@
+nav {
+  margin: 0;
+}
+.image {
+  width: 400px;
+  height: 400px;
+}
+
+.card-title {
+  font-weight: bold;
+}

@@ -1,106 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-	<title>Escape Vape</title>
-	<link href="/css/style.css" rel="stylesheet">
-	<link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-	<script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="/bower_components/jquery/dist/jquery.js"></script>
-	</head>
-	<body>
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-		  <a class="navbar-brand" href="/">EscapeVape</a>
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-		    <span class="navbar-toggler-icon"></span>
-		    
-		  </button>
+  <head>
+    <title>Escape Vape</title>
+    <link
+      href="/bower_components/bootstrap/dist/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">EscapeVape</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarsExample04"
+        aria-controls="navbarsExample04"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-		  <div class="collapse navbar-collapse" id="navbarsExample04">
-		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item">
-		        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-		      </li>
-		      <%if(typeof user!= 'undefined'){%>
-		      <li class="nav-item">
-		      	<a class = "nav-link" href="/users/log">Your Log</a></li>
-		      <li class="nav-item">
-		      	<a class="nav-link" href="/lifeline">Lifeline</a></li>
-		      <li class="nav-item active">
-		      	<a class="nav-link" href="/therapy">Therapy</a></li>
-		      <li class="nav-item">
-		      	<a class="nav-link" href="/rooms/">Video Call</a></li>
-		      <%}%>
-		  	</ul>
-		  	<ul class="navbar-nav navbar-right">
-		      <%if (typeof user != 'undefined'){%>
-		      <li class="nav-item">
-		      	<a class="nav-link" href="/users/account">Settings</a></li>
-		      	<li class="nav-item">
-		      	<a class = "nav-link" href="/users/logout">Logout</a></li>
-		      <%}else{%>
-		      <li class="nav-item">
-		        <a class="nav-link " href="/users/register">Register</a>
-		      </li>
-		     <li class="nav-item">
-		        <a class="nav-link" href="/users/login">Login</a>
-		      </li>
-		      <%}%>
-		    </ul>
-		  </div>
-		</nav>
-		<div class="container">
-			<%- messages('message', locals) %>
-		<% if(typeof errors != 'undefined'){%>
-			<% errors.forEach(function (i) { %>
-		    <div class="alert alert-danger"><%= i.msg %></div>
-		  	<% }) %>
-		<%}%>
-		<div class="list-group-item">
-		<h1>Therapies</h1>
-		<p>Here we try our best to provide real therapy sessions. We have different types for you to utilize that real therapists use. Read up on which therapies best suit you and follow its directions. Addiction is different from everyone so it is best that you choose the best therapy for yourself. The best way is to get professional help but we try our best to make it easier. Discretion: None of us are real therapists but we will try our best to implement the best therapies for you! Our goal is to be a stepping stone for all therapies to come to the digital age, accessible to anyone and everyone.</p></div>
-		<ul>
-			<li class="list-group-item">
-				<h2>Cognitive Behavior Therapy</h2>
-				<p>This therapy has you recognize your bad behaviors and identify triggers for relapse. You learn to avoid these triggers and how to respond to them if they ever occur.</p>
-			</li>
-			<li class="list-group-item">
-				<h2>Contingency Management</h2>
-				<p>This therapy rewards you materialistically to reach milestones.</p>
-			</li>
-			<li class="list-group-item">
-				<h2>Motivational Interviewing</h2>
-				<p>This therapy has you identify your core motivations and goals for quitting. You then draw energy from these motivations and plan a roadmap yourself.</p>
-			</li>
-			<li class="list-group-item">
-				<h2>Basic Therapy</h2>
-				<p>This therapy has you always practicing abstinence, pushing you to keep you sober as long as possible. It asks that you keep a log of your journey and has tips on what stage you might be in and what else you can do to help. To resist urgers, it provides distractions to eventually reconfigure your brain.</p>
-			</li>
-			<li class="list-group-item">
-				<h2>Behavioral Therapy</h2>
-				<p>This therapy makes you face stimuli to vape with others. This will make you learn new behaviors to resist urgers when you are alone. It promotes good behavior and changes bad behavior to reduce addiction.</p>
-			</li>
-			<li class="list-group-item">
-				<h2>Rational Emotive Behavior Therapy</h2>
-				<p>This therapy teaches you to think more positively on yourself, giving you the confidence and energy to overcome your addiction. It also teaches you to live a more fulfilling life so that you can create your own happiness rather than depending on nicotine.</p>
-			</li>
-			<li class="list-group-item">
-				<h2>Recreational Therapy</h2>
-				<p>This therapy helps you participate in reacreational activities to replace your addiction. You will find enjoyment outside and bond with your community more.</p>
-			</li>
-			<li class="list-group-item">
-				<h2>Family Based Therapy</h2>
-				<p>This therapy connects you more with your family for better connections and bonds. This will help you connect back with your family.</p>
-			</li>
-			<li class="list-group-item">
-				<h2>Group Therapy</h2>
-				<p>This therapy places you in groups of similar people where you can talk about experiences or advice to motivate each other to quit vaping. You will gain confidence seeing that you are not alone and you have a support group to fall back on. This creates a great culture for you.</p>
-			</li>
-			<li class="list-group-item">
-				<h2>Biofeedback Therapy</h2>
-				<p>This therapy teaches you to connect your mind and body. You find peace within yourself and learn how to control your body and mind to relax and create a greater sense of well-being instead of intense cravings.</p>
-			</li>
-		</ul>
-	
-		</div>
-</body>
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <%if(typeof user!= 'undefined'){%>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/log">Your Log</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/lifeline">Lifeline</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/therapy">Therapy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/rooms/">Video Call</a>
+          </li>
+          <%}%>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+          <%if (typeof user != 'undefined'){%>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/account">Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/logout">Logout</a>
+          </li>
+          <%}else{%>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/login">Login</a>
+          </li>
+          <%}%>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <%- messages('message', locals) %> <% if(typeof errors != 'undefined'){%>
+      <% errors.forEach(function (i) { %>
+      <div class="alert alert-danger"><%= i.msg %></div>
+      <% }) %> <%}%>
+      <div class="list-group-item">
+        <h1>Therapies</h1>
+        <p>
+          Here we try our best to provide real therapy sessions. We have
+          different types for you to utilize that real therapists use. Read up
+          on which therapies best suit you and follow its directions. Addiction
+          is different from everyone so it is best that you choose the best
+          therapy for yourself. The best way is to get professional help but we
+          try our best to make it easier. Discretion: None of us are real
+          therapists but we will try our best to implement the best therapies
+          for you! Our goal is to be a stepping stone for all therapies to come
+          to the digital age, accessible to anyone and everyone.
+        </p>
+      </div>
+      <ul>
+        <li class="list-group-item">
+          <h2>Cognitive Behavior Therapy</h2>
+          <p>
+            This therapy has you recognize your bad behaviors and identify
+            triggers for relapse. You learn to avoid these triggers and how to
+            respond to them if they ever occur.
+          </p>
+        </li>
+        <li class="list-group-item">
+          <h2>Contingency Management</h2>
+          <p>This therapy rewards you materialistically to reach milestones.</p>
+        </li>
+        <li class="list-group-item">
+          <h2>Motivational Interviewing</h2>
+          <p>
+            This therapy has you identify your core motivations and goals for
+            quitting. You then draw energy from these motivations and plan a
+            roadmap yourself.
+          </p>
+        </li>
+        <li class="list-group-item">
+          <h2>Basic Therapy</h2>
+          <p>
+            This therapy has you always practicing abstinence, pushing you to
+            keep you sober as long as possible. It asks that you keep a log of
+            your journey and has tips on what stage you might be in and what
+            else you can do to help. To resist urgers, it provides distractions
+            to eventually reconfigure your brain.
+          </p>
+        </li>
+        <li class="list-group-item">
+          <h2>Behavioral Therapy</h2>
+          <p>
+            This therapy makes you face stimuli to vape with others. This will
+            make you learn new behaviors to resist urgers when you are alone. It
+            promotes good behavior and changes bad behavior to reduce addiction.
+          </p>
+        </li>
+        <li class="list-group-item">
+          <h2>Rational Emotive Behavior Therapy</h2>
+          <p>
+            This therapy teaches you to think more positively on yourself,
+            giving you the confidence and energy to overcome your addiction. It
+            also teaches you to live a more fulfilling life so that you can
+            create your own happiness rather than depending on nicotine.
+          </p>
+        </li>
+        <li class="list-group-item">
+          <h2>Recreational Therapy</h2>
+          <p>
+            This therapy helps you participate in reacreational activities to
+            replace your addiction. You will find enjoyment outside and bond
+            with your community more.
+          </p>
+        </li>
+        <li class="list-group-item">
+          <h2>Family Based Therapy</h2>
+          <p>
+            This therapy connects you more with your family for better
+            connections and bonds. This will help you connect back with your
+            family.
+          </p>
+        </li>
+        <li class="list-group-item">
+          <h2>Group Therapy</h2>
+          <p>
+            This therapy places you in groups of similar people where you can
+            talk about experiences or advice to motivate each other to quit
+            vaping. You will gain confidence seeing that you are not alone and
+            you have a support group to fall back on. This creates a great
+            culture for you.
+          </p>
+        </li>
+        <li class="list-group-item">
+          <h2>Biofeedback Therapy</h2>
+          <p>
+            This therapy teaches you to connect your mind and body. You find
+            peace within yourself and learn how to control your body and mind to
+            relax and create a greater sense of well-being instead of intense
+            cravings.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </body>
 </html>
