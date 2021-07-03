@@ -4,8 +4,42 @@ nav {
 .image {
   width: 400px;
   height: 400px;
+  margin-left: 16px;
+}
+
+.card {
+  margin: 32px;
+  text-align: center;
 }
 
 .card-title {
   font-weight: bold;
+  color: #f63a3a;
+}
+
+.card-info {
+  margin-right: 16px;
+  font-size: 18px;
+  text-align: left;
+}
+
+.card-about,
+.card-why {
+  margin-right: 16px;
+  margin-left: 16px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.card-title {
+  text-align: center;
+}
+
+.card-about {
+  display: flex;
+  justify-content: center;
+}
+
+.card-person {
+  margin: 12px;
 }
