@@ -4,8 +4,6 @@ router.get("/", ensureAuthenticated, (req, res) => {
   res.render("therapy");
 });
 
-
-
 // Access Control
 function ensureAuthenticated(req, res, next){
   if(req.isAuthenticated()){
