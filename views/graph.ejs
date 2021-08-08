@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<title>Escape Vape</title>
+	<link
+      href="/bower_components/bootstrap/dist/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <link href="/css/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      let arr = [['Day #', 'Sentiment Guess'], [0,0]];
+      let log = <%- JSON.stringify(log) %>; // test is now a valid js object
+      let sent = <%- JSON.stringify(sent) %>
+      let start =<%- JSON.stringify(start) %>
+      Array.prototype.forEach.call(log, (el, index) => {
+          let a = new Date(el.date);
+          let b= new Date(start);
+
+          const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+        const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+        const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+        let diff = Math.floor((utc1 - utc2) / _MS_PER_DAY);
+          if(diff){
+            arr = arr.concat([[diff, (sent[index].tag_name=='Positive') ? sent[index].confidence : -1*sent[index].confidence]]);
+          }
+      })
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(arr);
+
+        var options = {
+          title: 'Sentiment Analysis of Logs',
+          curveType: 'function',
+          legend: { position: 'bottom' },
+          vAxes: {
+              0: {title: 'Sentiment (-1 to 1)'}
+          },
+          hAxes: {
+            0: {title: 'Day #'}
+          }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+		  <a class="navbar-brand" href="/">EscapeVape</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+
+		  <div class="collapse navbar-collapse" id="navbarsExample04">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item">
+		        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+		      </li>
+		      <%if(typeof user!= 'undefined'){%>
+		      <li class="nav-item active">
+		      	<a class = "nav-link" href="/users/log">Your Log</a></li>
+		      	<li class="nav-item">
+		      		<li class="nav-item">
+		      	<a class="nav-link" href="/lifeline">Lifeline</a></li>
+		      <li class="nav-item">
+            <a class="nav-link" href="/therapy">Therapy</a></li>
+            <a class="nav-link" href="/rooms/">Video Call</a></li>
+		      <%}%>
+		  	</ul>
+		  	<ul class="navbar-nav navbar-right">
+		      <%if (typeof user != 'undefined'){%>
+		      <li class="nav-item">
+		      	<a class="nav-link" href="/users/account">Settings</a></li>
+		      	<li class="nav-item">
+		      	<a class = "nav-link" href="/users/logout">Logout</a></li>
+		      <%}else{%>
+		      <li class="nav-item">
+		        <a class="nav-link " href="/users/register">Register</a>
+		      </li>
+		     <li class="nav-item">
+		        <a class="nav-link" href="/users/login">Login</a>
+		      </li>
+		      <%}%>
+		    </ul>
+		  </div>
+		</nav>
+		<div class="container">
+			<%- messages('message', locals) %>
+		<% if(typeof errors != 'undefined'){%>
+			<% errors.forEach(function (i) { %>
+		    <div class="alert alert-danger"><%= i.msg %></div>
+		  	<% }) %>
+		<%}%>
+		<div class="card2">
+            <div id="curve_chart" style="width: 900px; height: 500px"></div>
+		</div>
+		</div>
+</body>
+</html>

@@ -9,6 +9,12 @@ let Log = require('../models/log');
  	res.render('register');
  });
 let Email = require('../models/email');
+
+const MonkeyLearn = require('monkeylearn')
+
+const ml = new MonkeyLearn(process.env.monkey_key);
+let model_id = process.env.model_id;
+
 //register process
 router.post('/register', function(req, res){
 	const email = req.body.email;
@@ -231,6 +237,37 @@ router.post('/login', function(req, res, next){
     failureFlash: true
   })(req, res, next);
 });
+router.get('/log/graph', ensureAuthenticated, function(req, res){
+	Log.findOne({user_id: req.user._id}, function(err, log){
+		if(err){
+			req.flash('danger', 'Something went wrong')
+			res.redirect('/');
+			console.log(err);
+			return;
+		}
+		else{
+			let start = log.logs[0].date;
+			let sent = [];
+			let proms = [];
+
+			log.logs.forEach((el, index)=>{
+					const prom = new Promise((resolve, reject) => {
+						let data = [el.body];
+						ml.classifiers.classify(model_id, data).then(resp => {
+							sent = sent.concat(resp.body[0].classifications);
+							resolve(index);
+						})
+					})
+					proms.push(prom);
+				})
+			Promise.all(proms).then((results)=> {
+				res.render('graph', {log:log.logs, sent:sent, start:start});
+			});
+		}
+	});
+
+
+})
 router.get('/log', ensureAuthenticated, function(req, res){
 	Log.findOne({user_id: req.user._id}, function(err, log){
 		if(err){
