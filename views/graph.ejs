@@ -30,7 +30,7 @@
         const _MS_PER_DAY = 1000 * 60 * 60 * 24;
         let diff = Math.floor((utc1 - utc2) / _MS_PER_DAY);
           if(diff){
-            arr = arr.concat([[diff, (sent[index].tag_name=='Positive') ? sent[index].confidence : ( (sent[inex].tag_name=='Neutral') ? 0 : -1*sent[index].confidence)]]);
+            arr = arr.concat([[diff, (sent[index].tag_name=='Positive') ? sent[index].confidence : ( (sent[index].tag_name=='Neutral') ? 0 : -1*sent[index].confidence)]]);
           }
       })
       function drawChart() {
