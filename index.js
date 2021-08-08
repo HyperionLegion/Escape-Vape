@@ -92,7 +92,7 @@ var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'escapevapeapp@gmail.com',
-    pass: 'EscapeVape2020!'
+    pass: process.env.password
   }
 });
 
