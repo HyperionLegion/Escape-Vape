@@ -1,0 +1,31 @@
+.calculator {
+    width: 100%;
+    background-color: white;
+}
+
+#freq, #cost {
+    width: 75%
+}
+
+.input {
+    margin: 16px;
+}
+
+#result, #future {
+    width: 50%;
+    text-align: center;
+}
+
+.shown {
+    padding: 8px;
+}
+
+.bold {
+    font-weight: bold;
+}
+.results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

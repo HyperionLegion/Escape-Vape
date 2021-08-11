@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Escape Vape</title>
+    <link
+      href="/bower_components/bootstrap/dist/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/contingency.css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">EscapeVape</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarsExample04"
+        aria-controls="navbarsExample04"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <%if(typeof user!= 'undefined'){%>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/log">Your Log</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/lifeline">Lifeline</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/therapy">Therapy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/rooms/">Video Call</a>
+          </li>
+          <%}%>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+          <%if (typeof user != 'undefined'){%>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/account">Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/logout">Logout</a>
+          </li>
+          <%}else{%>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/login">Login</a>
+          </li>
+          <%}%>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <%- messages('message', locals) %> <% if(typeof errors != 'undefined'){%>
+      <% errors.forEach(function (i) { %>
+      <div class="alert alert-danger"><%= i.msg %></div>
+      <% }) %> <%}%>
+      <div class="list-group-item">
+        <h1>Contingency Management Therapy</h1>
+        <p>
+            This therapy rewards you materialistically to reach milestones. Use the calculator below to figure out how big your budget is just by quitting vaping:
+        </p>
+      </div>
+    <div class="calculator">
+        <div class="results">
+            <div id="result" class="alert-success"></div>
+            <div id="future" class="alert-success"></div>
+        </div>
+        <div class="form-group">
+            <label for="freq">Frequency of Purchase</label><br>
+            <div class="input">
+                Days: 
+                <input type="number" id="freq" name="freq" placeholder="Number of days between each vape-related purchase"><br><br>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="cost">Cost per Purchase:</label><br>
+            <div class="input">
+                Cost: $
+                <input type="number" id="cost" name="cost" placeholder="Average cost for each vape-related purchase"><br><br>
+            </div>
+        </div>
+        <input class="btn btn-primary" type="submit" id="submit" value="Submit">
+    </form>
+    </div>
+  </body>
+  <script>
+      const calculate = () => {
+          let cost = document.getElementById("cost").value;
+          let freq = document.getElementById("freq").value;
+          let day = <%- JSON.stringify(days) %>; // test is now a valid js object
+          console.log(day);
+          let total = day/freq *cost;
+          let future = (day+100)/freq*cost;
+          document.getElementById("result").classList.add("shown");
+          document.getElementById("future").classList.add("shown");
+          document.getElementById("result").innerHTML = "You have saved <span class='bold'>$" +parseFloat(total).toFixed(2)+"</span> so far! Go and treat yourself!"
+          document.getElementById("future").innerHTML = "You will have saved <span class='bold'>$" +parseFloat(future).toFixed(2)+"</span> in 100 more days! Let's work towards that goal"
+      }
+     document.getElementById("submit").addEventListener("click", calculate);
+  </script>
+</html>

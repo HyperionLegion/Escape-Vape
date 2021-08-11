@@ -8,15 +8,16 @@ if (process.env.NODE_ENV !== 'production') {
   
 let User = require('../models/user');
 let Log = require('../models/log');
- router.get('/register', function(req, res){
- 	res.render('register');
- });
 let Email = require('../models/email');
 
 const MonkeyLearn = require('monkeylearn')
 
 const ml = new MonkeyLearn(process.env.monkey_key);
 let model_id = process.env.model_id;
+
+router.get('/register', function(req, res){
+	res.render('register');
+});
 
 //register process
 router.post('/register', function(req, res){
