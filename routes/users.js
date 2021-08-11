@@ -2,8 +2,11 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-
- let User = require('../models/user');
+if (process.env.NODE_ENV !== 'production') {
+	require('dotenv').config();
+}
+  
+let User = require('../models/user');
 let Log = require('../models/log');
  router.get('/register', function(req, res){
  	res.render('register');
