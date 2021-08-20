@@ -3,6 +3,7 @@ const { v4: uuidV4 } = require("uuid");
 const router = express.Router();
 const server = require("http").Server(router);
 const io = require("socket.io")(server);
+
 router.get("/", ensureAuthenticated, (req, res) => {
   res.redirect(`/rooms/${uuidV4()}`); //randomly creates a room link
 });
