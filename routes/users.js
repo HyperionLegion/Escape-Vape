@@ -207,7 +207,7 @@ router.post('/account', ensureAuthenticated, function(req, res){
 					newUser.days = user.days;
 					newUser._id = user._id;
 					newUser.email = user.email;
-					User.update({_id:req.user._id}, newUser, function(err){
+					User.updateOne({_id:req.user._id}, newUser, function(err){
 						if(err){
 												console.log(err);
 												return;
@@ -324,7 +324,7 @@ router.post('/log/relapse', ensureAuthenticated, function(req, res){
 			let today = new Date();
 			let newDays = Math.round((today.getTime() - user.date.getTime())/(1000*3600*24));
 			let updated = {_id: user._id, username:user.username,email:user.email,password:user.password,date: today,days: Math.max(newDays, user.days)}
-			User.update({_id: req.user._id}, updated, function(err){
+			User.updateOne({_id: req.user._id}, updated, function(err){
 				if(err){
 					console.log(err);
 					return;
@@ -352,7 +352,7 @@ router.post('/log/add', ensureAuthenticated, function(req, res){
 			else{
 				let newLog = {date: new Date(), body:req.body.log};
 				log.logs.push(newLog);
-				Log.update({user_id: req.user._id}, log, function(err){
+				Log.updateOne({user_id: req.user._id}, log, function(err){
 					if(err){
 					console.log(err);
 					return;

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Escape Vape</title>
+    <link
+      href="/bower_components/bootstrap/dist/css/bootstrap.css"
+      rel="stylesheet"
+    />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <link href="/css/style.css" rel="stylesheet" />
+    <link href="/css/contingency.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="/images/escapevape.png" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">EscapeVape</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarsExample04"
+        aria-controls="navbarsExample04"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <%if(typeof user!= 'undefined'){%>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/log">Your Log</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/lifeline">Lifeline</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/therapy">Therapy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/rooms/">Video Call</a>
+          </li>
+          <%}%>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+          <%if (typeof user != 'undefined'){%>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/account">Settings</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/logout">Logout</a>
+          </li>
+          <%}else{%>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/register">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/login">Login</a>
+          </li>
+          <%}%>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <%- messages('message', locals) %> <% if(typeof errors != 'undefined'){%>
+      <% errors.forEach(function (i) { %>
+      <div class="alert alert-danger"><%= i.msg %></div>
+      <% }) %> <%}%>
+      <div class="list-group-item">
+        <h1>Group Community Therapy</h1>
+        <p>
+            This therapy connects you annonymously to others on this app through a community forums exchange. Feel free to speak your mind and ask questions in a post or help others out with a comment!
+        </p>
+      </div>
+      <a class="btn btn-success" href= "/therapy/group/post">New Post</a>
+
+      <% if (typeof post != 'undefined'){%>
+        <div class="list-group-item">
+            <div class="postTitle"><%= post.title%></div>
+            <div class="postDate"><%= post.date %></div>
+            <div class="postBody"> <%= post.body %></div>
+            <div class="postComments">Comments:</div>
+            <% if (typeof post.comments != 'undefined'){%>
+                <% post.comments.forEach(function (comment) { %>
+                    <div class="commentDate"><%=comment.date %></div>
+                    <div class="commentBody"><%=comment.body %></div>
+                <% }) %>
+            <%}%>
+            <form  method="POST" action="/therapy/group/<%=post._id%>/post">
+                <div id="form-group">
+                    <label
+                      ><span class="h4">New Comment:</span> </label
+                    >
+                    <textarea  class="form-control" type="text" autocomplete="on" minlength="1" rows="7" cols="60" name="body" placeholder="Post body goes here..."></textarea>
+                  </div>
+                  <input class="btn btn-primary" type="submit" value="Submit" />
+            </form>
+        </div>
+        <%} else{%>
+            <h2>No post found</h2>
+        <%}%>
+
+  </body>
+</html>

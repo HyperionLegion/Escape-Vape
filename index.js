@@ -129,14 +129,7 @@ app.get('/', function(req, res){
 
   res.render('index')
 });
-/*app.get('/:page', function(req, res){
 
-    var info = {
-        page : req.params.page
-    };
-
-    res.send("Not valid URL for this site")
-});*/
 app.get('/lifeline', ensureAuthenticated, function(req, res){
   res.render('lifeline');
 });
