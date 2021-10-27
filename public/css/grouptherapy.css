@@ -29,3 +29,17 @@
 {
     width: 50%;
 }
+
+.commentDate
+{
+    font-size: 12px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    border-top: solid;
+}
+
+.commentBody
+{
+    margin-bottom: 8px;
+}
+
