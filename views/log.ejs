@@ -68,7 +68,7 @@
 				<a href="/users/log/relapse" class="btn btn-danger">Relapse</a>
 				<h2><%=days%> days since last vape</h2>
 			</div>
-			<h4>Last vape date: <%=date%></h4>
+			<h4>Last vape date: <%=date.toLocaleString().split(',')[0]%></h4>
 			<div>
 				<h4>Last best record: <%=longest%> days</h4>
 				<a href="/users/log/add" class="btn btn-primary">Add Log</a>
@@ -80,7 +80,7 @@
 				<ul>
 					<%log.logs.reverse().forEach(function(logEntry){%>
 					<li class="list-group-item">
-						<h4>Date: <%=logEntry.date%></h2>
+						<h4>Date: <%=logEntry.date.toLocaleString().split(',')[0]%></h2>
 						<h4>Log: <%=logEntry.body%></h2>
 					</li>
 				<%})%>
