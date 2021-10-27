@@ -92,6 +92,8 @@
             <div class="postDate"><%= post.date.toLocaleString().split(',')[0]%></div>
             <div class="postBody"> <%= post.body %></div>
             <br>
+          </div>
+          <div class="list-group-item post">
             <div class="postComments">Comments:</div>
             <% if (typeof post.comments != 'undefined'){%>
                 <% post.comments.forEach(function (comment) { %>
