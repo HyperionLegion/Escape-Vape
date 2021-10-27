@@ -14,6 +14,7 @@
     ></script>
     <link href="/css/style.css" rel="stylesheet" />
     <link href="/css/contingency.css" rel="stylesheet" />
+    <link href="/css/grouptherapy.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="/images/escapevape.png" />
   </head>
   <body>
@@ -86,14 +87,15 @@
       <a class="btn btn-success" href= "/therapy/group/post">New Post</a>
 
       <% if (typeof post != 'undefined'){%>
-        <div class="list-group-item">
+        <div class="list-group-item post">
             <div class="postTitle"><%= post.title%></div>
-            <div class="postDate"><%= post.date %></div>
+            <div class="postDate"><%= post.date.toLocaleString().split(',')[0]%></div>
             <div class="postBody"> <%= post.body %></div>
+            <br>
             <div class="postComments">Comments:</div>
             <% if (typeof post.comments != 'undefined'){%>
                 <% post.comments.forEach(function (comment) { %>
-                    <div class="commentDate"><%=comment.date %></div>
+                    <div class="commentDate"><%=comment.date.toLocaleString().split(',')[0]%></div>
                     <div class="commentBody"><%=comment.body %></div>
                 <% }) %>
             <%}%>

@@ -14,6 +14,7 @@
     ></script>
     <link href="/css/style.css" rel="stylesheet" />
     <link href="/css/contingency.css" rel="stylesheet" />
+    <link href="/css/grouptherapy.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="/images/escapevape.png" />
   </head>
   <body>
@@ -83,15 +84,15 @@
             This therapy connects you annonymously to others on this app through a community forums exchange. Feel free to speak your mind and ask questions in a post or help others out with a comment!
         </p>
       </div>
-      <a class="btn btn-success" href= "/therapy/group/post">New Post</a>
+      <a class="btn btn-success newpost" href= "/therapy/group/post">New Post</a>
 
       <% if (typeof posts != 'undefined'){%>
         <% posts.reverse().forEach(function (post){ %>
-            <div class="list-group-item">
+            <div class="list-group-item post">
                 <a href="/therapy/group/<%=post._id%>">
                 <div class="postTitle"><%= post.title%></div>
-                <div class="postDate"><%= post.date %></div>
-                <div class="postBody"> <%= post.body %></div>
+                <div class="postDate"><%= post.date.toLocaleString().split(',')[0]%></div>
+                <div class="postBody"> <%= post.comments.length %> comments</div>
                 </a>
             </div>
         <% }) %>

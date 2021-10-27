@@ -1,14 +1,4 @@
-a {
-    color: black;
-}
-
-ul
-{
-    margin-left: 0;
-    padding-left: 0;
-}
-
-.therapy, .therapy:first-child, .therapy:last-child{
+.post, .post:first-child, .post:last-child{
     display: flex;
       border-radius: 15px;
       border-top-left-radius: 15px;
@@ -16,9 +6,26 @@ ul
       flex-direction: column;
       box-sizing: border-box;
       justify-content: center;
-      margin-top: 16px;
-      margin-bottom: 16px;
+      margin: 10px;
       padding: 10px;
-      width: 100%;
+      width: 45%;
+      background-color: #faebdd;
       box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
-    }
+}
+
+.newpost{
+    margin: 16px;
+}
+
+.postTitle
+{
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: black;
+}
+
+.btn-success
+{
+    width: 50%;
+}
