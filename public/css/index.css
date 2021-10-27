@@ -43,3 +43,8 @@ nav {
 .card-person {
   margin: 12px;
 }
+
+.info-paragraph
+{
+  text-align: left;
+}
