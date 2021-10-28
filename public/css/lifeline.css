@@ -19,7 +19,7 @@
 }
 
 .lifeline, .lifeline:first-child, .lifeline:last-child{
-display: flex;
+display: inline-block;
   border-radius: 15px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
