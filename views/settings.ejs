@@ -56,15 +56,14 @@
 		  </div>
 		</nav>
 		<div class="container">
-		<h1>Update Account</h1>
 		<%- messages('message', locals) %>
 		<% if(typeof errors != 'undefined'){%>
 			<% errors.forEach(function (i) { %>
 		    <div class="alert alert-danger"><%= i.msg %></div>
 		  	<% }) %>
 		<%}%>
-  <form method="POST" action="/users/account">
-
+  <form method="POST" class="card2 update" action="/users/account">
+	<h1>Update Account</h1>
     <div id="form-group">
       <label><span class="h4">Username:</span> (choose an anonymous username if you wish to be completely anonymous)</label>
       <input class="form-control" name="username" type="text" />
@@ -77,13 +76,14 @@
       <label class="h4">Confirm Password:</label>
       <input class="form-control" name="password2" type="password" />
     </div><br />
-    <input class="btn btn-primary" type="submit" value="Submit" />
+	<input class="btn btn-primary submit" type="submit" value="Submit" />
   </form>
   <br>
-  <h2>Daily Email Motivation: </h2>
+  <div class="card2 button">
+	<h2>Daily Email Motivation: </h2>
   <form method="POST" action="/users/notifs">
     <input class="btn btn-primary" type="submit" value="Enable/Disable Daily Email" />
   </form>
-
+  </div>
 </body>
 </html>

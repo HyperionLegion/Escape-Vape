@@ -46,6 +46,27 @@ body {
   box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 
+.update {
+  margin-top: 16px;
+}
+
+.update2 {
+  margin-top: 64px;
+}
+
+.submit
+{
+  width: 25%;
+  text-align: center;
+}
+
+.button
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .container {
   display: flex;
   flex-direction: column;
