@@ -41,6 +41,7 @@ body {
   margin-bottom: 10px;
   padding: 10px;
   margin-right: 15px;
+  margin-left: 15px;
   width: 100%;
   background-color: white;
   box-shadow: 0 10px 16px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
@@ -65,13 +66,16 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
+
 .alert-error {
   color: #a94442;
   background-color: #f2dede;

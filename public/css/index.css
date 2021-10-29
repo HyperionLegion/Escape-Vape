@@ -8,13 +8,15 @@ nav {
 }
 
 .card {
-  margin: 32px;
+  margin: 16px;
   text-align: center;
 }
 
 .card-title {
+  margin: 10px;
   font-weight: bold;
   color: #f63a3a;
+  text-align: center;
 }
 
 .card-info {
@@ -33,6 +35,7 @@ nav {
 
 .card-title {
   text-align: center;
+  font: Georgia;
 }
 
 .card-about {
